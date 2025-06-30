@@ -14,17 +14,20 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 ## Available Agents
 
 ### 🔄 **Smart Router (Default)**
+
 - **Octagon Agent** (`octagon-agent`) - Intelligent router that automatically selects the best specialized agent for your query
 
 ### 📈 **Public Market Agents**
+
 - **SEC Filings Agent** (`octagon-sec-agent`) - Analyzes SEC filings data
-- **Transcripts Agent** (`octagon-transcripts-agent`) - Analyzes earnings call transcripts  
+- **Transcripts Agent** (`octagon-transcripts-agent`) - Analyzes earnings call transcripts
 - **Stock Data Agent** (`octagon-stock-data-agent`) - Analyzes stock market data
 - **Financials Agent** (`octagon-financials-agent`) - Analyzes financial statements
 - **Holdings Agent** (`octagon-holdings-agent`) - Analyzes institutional ownership and holdings
 - **Crypto Agent** (`octagon-crypto-agent`) - Analyzes cryptocurrency market data
 
 ### 🏢 **Private Market Agents**
+
 - **Companies Agent** (`octagon-companies-agent`) - Provides private company information
 - **Funding Agent** (`octagon-funding-agent`) - Analyzes private company funding data
 - **Funds Agent** (`octagon-funds-agent`) - Analyzes private funds
@@ -33,6 +36,7 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 - **Debts Agent** (`octagon-debts-agent`) - Analyzes private debts, borrowers, and lenders
 
 ### 🔍 **Research Agents**
+
 - **Scraper Agent** (`octagon-scraper-agent`) - Extracts data from websites
 - **Deep Research Agent** (`octagon-deep-research-agent`) - Conducts in-depth research
 
@@ -50,11 +54,13 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 ### Install the Node
 
 #### Method 1: Install from npm (when published)
+
 ```bash
 npm install n8n-nodes-octagon
 ```
 
 #### Method 2: Install from local package
+
 ```bash
 # Install the packaged node
 npm install -g ./n8n-nodes-octagon-1.0.0.tgz
@@ -64,6 +70,7 @@ npm install -g /path/to/n8n-octagon-node
 ```
 
 #### Method 3: Docker Installation
+
 ```dockerfile
 FROM n8nio/n8n:latest
 
@@ -80,11 +87,11 @@ USER node
 ### Quick Start
 
 1. **Add Node**: Search for "Octagon" in n8n workflow
-2. **Configure**: 
-   - **Add Credentials**: Go to Credentials  → "Octagon API"
+2. **Configure**:
+   - **Add Credentials**: Go to Credentials → "Octagon API"
    - **Agent**: Use "Octagon Agent (Router)" for automatic routing (default)
    - **Query**: Enter your financial research question
-4. **Execute**: Run the workflow to get AI-powered analysis with citations
+3. **Execute**: Run the workflow to get AI-powered analysis with citations
 
 ### Node Configuration
 
@@ -92,12 +99,13 @@ The node interface is clean and simple:
 
 - **🎯 Agent**: Select from router or 14 specialized agents
 - **💬 Query**: Your research question (supports complex queries)
-- **⚙️ Additional Options**: 
+- **⚙️ Additional Options**:
   - Include Token Usage (optional)
 
 ### Example Queries
 
 #### Universal Queries (using Octagon Agent Router)
+
 ```
 Tell me about Apple's latest earnings performance
 What's happening with Tesla's stock price?
@@ -106,12 +114,13 @@ Compare Microsoft vs Google revenue growth
 ```
 
 #### Specialized Agent Queries
+
 ```
 # SEC Filings Agent
 What were Apple's revenue numbers in Q3 2023?
 Analyze Tesla's latest 10-K filing for risk factors
 
-# Transcripts Agent  
+# Transcripts Agent
 What did Apple's CEO say about iPhone sales in the latest earnings call?
 Analyze management guidance from Tesla's Q4 2023 earnings call
 
@@ -130,25 +139,25 @@ The node returns a JSON object with the following structure:
 
 ```json
 {
-  "agent": "octagon-agent",
-  "query": "Tell me about Apple's latest earnings",
-  "analysis": "Apple reported strong Q4 2023 results with revenue of $89.5 billion...",
-  "sources": [
-    {
-      "order": 1,
-      "name": "Apple Inc. (10-Q) - 2023-Q4, Page: 10",
-      "url": "https://octagon-sec-filings.s3.amazonaws.com/..."
-    }
-  ],
-  "metadata": {
-    "apiType": "responses",
-    "timestamp": "2024-01-15T10:30:00.000Z"
-  },
-  "usage": {
-    "prompt_tokens": 150,
-    "completion_tokens": 800,
-    "total_tokens": 950
-  }
+	"agent": "octagon-agent",
+	"query": "Tell me about Apple's latest earnings",
+	"analysis": "Apple reported strong Q4 2023 results with revenue of $89.5 billion...",
+	"sources": [
+		{
+			"order": 1,
+			"name": "Apple Inc. (10-Q) - 2023-Q4, Page: 10",
+			"url": "https://octagon-sec-filings.s3.amazonaws.com/..."
+		}
+	],
+	"metadata": {
+		"apiType": "responses",
+		"timestamp": "2024-01-15T10:30:00.000Z"
+	},
+	"usage": {
+		"prompt_tokens": 150,
+		"completion_tokens": 800,
+		"total_tokens": 950
+	}
 }
 ```
 
@@ -170,13 +179,14 @@ The node includes comprehensive error handling:
 - **🤖 Agent Errors**: Agent-specific errors or limitations
 
 Errors are returned in a structured format:
+
 ```json
 {
-  "error": true,
-  "message": "Authentication failed. Please check your API key.",
-  "query": "Your original query",
-  "agent": "octagon-agent",
-  "timestamp": "2024-01-15T10:30:00.000Z"
+	"error": true,
+	"message": "Authentication failed. Please check your API key.",
+	"query": "Your original query",
+	"agent": "octagon-agent",
+	"timestamp": "2024-01-15T10:30:00.000Z"
 }
 ```
 
@@ -192,11 +202,13 @@ npm run build
 ```
 
 ### Development Mode
+
 ```bash
 npm run dev  # Watch mode for development
 ```
 
 ### Package for Distribution
+
 ```bash
 npm run package  # Creates .tgz file
 ```
@@ -206,11 +218,13 @@ npm run package  # Creates .tgz file
 ### Prerequisites for Local Development
 
 1. **Install n8n globally**:
+
 ```bash
 npm install -g n8n
 ```
 
 2. **Clone and build the node**:
+
 ```bash
 git clone https://github.com/octagon/octagon-n8n-node.git
 cd octagon-n8n-node
@@ -231,6 +245,7 @@ N8N_CUSTOM_EXTENSIONS=/Users/yourname/Desktop/octagon-n8n-node n8n start
 ```
 
 **Advantages:**
+
 - ✅ No need to reinstall after changes
 - ✅ Perfect for development and testing
 - ✅ Changes reflect immediately after rebuild
@@ -260,7 +275,7 @@ n8n start
 4. **Search for "Octagon"** in the node list
 5. **Add the node** and configure:
    - Set up Octagon API credentials
-   - Select "Octagon Agent (Router)" 
+   - Select "Octagon Agent (Router)"
    - Enter a test query: "Tell me about Apple's latest earnings"
    - Execute the workflow
 
@@ -275,20 +290,24 @@ n8n start
 ### Troubleshooting Local Development
 
 **Node not appearing:**
+
 - Restart n8n completely
 - Check the custom extensions path is correct
 - Verify the build completed successfully
 
 **Icon not loading:**
+
 - Clear browser cache (`Cmd/Ctrl + Shift + R`)
 - Check that `Octagon-logo-only.png` is in the `dist/` folder
 
 **TypeScript errors:**
+
 ```bash
 npm run build  # Check for compilation errors
 ```
 
 **Permission issues:**
+
 ```bash
 # Fix n8n settings permissions
 chmod 600 ~/.n8n/config
@@ -326,4 +345,4 @@ See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 **⚠️ Note**: This node requires an active Octagon API subscription. Some agents may have usage limits or require premium access. Get started with a free API key at [octagonagents.com](https://octagonagents.com).
 
-**🏆 Professional Grade**: This node is built to enterprise standards with comprehensive error handling, security best practices, and optimal performance. 
+**🏆 Professional Grade**: This node is built to enterprise standards with comprehensive error handling, security best practices, and optimal performance.

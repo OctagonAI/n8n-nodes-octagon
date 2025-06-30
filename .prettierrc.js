@@ -6,4 +6,4 @@ module.exports = {
 	useTabs: true,
 	quoteProps: 'as-needed',
 	endOfLine: 'lf',
-}; 
+};

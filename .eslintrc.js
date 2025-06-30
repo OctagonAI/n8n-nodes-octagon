@@ -14,13 +14,7 @@ module.exports = {
 		extraFileExtensions: ['.json'],
 	},
 
-	ignorePatterns: [
-		'.eslintrc.js',
-		'jest.config.js',
-		'**/*.js',
-		'**/dist/**',
-		'./node_modules/**',
-	],
+	ignorePatterns: ['.eslintrc.js', 'jest.config.js', '**/*.js', '**/dist/**', './node_modules/**'],
 
 	overrides: [
 		{
@@ -50,4 +44,4 @@ module.exports = {
 			extends: ['plugin:n8n-nodes-base/community'],
 		},
 	],
-}; 
+};
