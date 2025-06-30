@@ -32,13 +32,13 @@
     "email": "ken@octagonai.co",
     "url": "https://octagonagents.com"
   },
-  "homepage": "https://github.com/octagon/octagon-n8n-node#readme",
+  "homepage": "https://www.npmjs.com/package/n8n-nodes-octagon",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/octagon/octagon-n8n-node.git"
+    "url": "git+https://github.com/octagonai/n8n-nodes-octagon.git"
   },
   "bugs": {
-    "url": "https://github.com/octagon/octagon-n8n-node/issues"
+    "url": "https://github.com/octagonai/n8n-nodes-octagon/issues"
   },
   "license": "MIT",
   "type": "commonjs",
@@ -68,6 +68,7 @@
   "files": [
     "dist/**/*",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "*.md"
   ]
 }
