@@ -1,0 +1,73 @@
+{
+  "name": "n8n-nodes-octagon",
+  "version": "1.0.0",
+  "description": "Professional n8n node for Octagon AI Agents - Access 15 specialized financial and market research AI agents including SEC filings, earnings transcripts, stock data, and private market intelligence",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "package": "npm run build && npm pack",
+    "lint": "eslint . --ext .ts,.js",
+    "lintfix": "eslint . --ext .ts,.js --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "n8n", 
+    "n8n-community-node-package", 
+    "octagon", 
+    "ai-agents",
+    "financial-data",
+    "market-research",
+    "sec-filings",
+    "earnings-transcripts",
+    "stock-data",
+    "private-markets",
+    "financial-analysis",
+    "api-integration"
+  ],
+  "author": {
+    "name": "Octagon",
+    "email": "ken@octagonai.co",
+    "url": "https://octagonagents.com"
+  },
+  "homepage": "https://github.com/octagon/octagon-n8n-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/octagon/octagon-n8n-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/octagon/octagon-n8n-node/issues"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": ["dist/OctagonAgents.node.js"],
+    "credentials": ["dist/OctagonApi.credentials.js"]
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/express": "^4.17.13",
+    "@types/form-data": "^2.2.1",
+    "n8n-workflow": "^1.0.0",
+    "n8n-core": "^1.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.0",
+    "prettier": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+  "dependencies": {},
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ]
+}
