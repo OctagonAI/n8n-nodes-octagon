@@ -15,9 +15,18 @@ import {
 export class OctagonApi implements ICredentialType {
   name = 'octagonApi';
   displayName = 'Octagon API';
-  // nodelinter-ignore-next-line cred-class-field-documentation-url-not-http-url
-  documentationUrl = 'https://docs.octagonagents.com/authentication';
+  // eslint-disable-next-line n8n-nodes-base/cred-class-field-documentation-url-not-http-url
+  documentationUrl = 'httpsDocsOctagonagentsComAuthentication';
   properties: INodeProperties[] = [
+    {
+      displayName: 'Get your free OctagonAPI key at: <a href="https://app.octagonai.co/signup" target="_blank">app.octagonai.co/signup</a>',
+      name: 'notice',
+      type: 'notice',
+      default: '',
+      displayOptions: {
+        show: {},
+      },
+    },
     {
       displayName: 'API Key',
       name: 'apiKey',
@@ -25,7 +34,8 @@ export class OctagonApi implements ICredentialType {
       typeOptions: { password: true },
       default: '',
       required: true,
-      description: 'Your Octagon API key. Get it from Settings → API Keys in your Octagon account.',
+      placeholder: 'oct_1234567890abcdef...',
+      description: 'Your Octagon API key from Settings → API Keys in your account',
     },
   ];
 

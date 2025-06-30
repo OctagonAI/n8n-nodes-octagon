@@ -312,7 +312,7 @@ chmod 600 ~/.n8n/config
 
 ## License
 
-ISC License - See [LICENSE](LICENSE) file for details.
+MIT License - See [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
