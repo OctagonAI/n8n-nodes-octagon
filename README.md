@@ -63,7 +63,7 @@ npm install n8n-nodes-octagon
 
 ```bash
 # Install the packaged node
-npm install -g ./n8n-nodes-octagon-1.0.0.tgz
+npm install -g ./n8n-nodes-octagon-1.0.3.tgz
 
 # Or install from the project directory
 npm install -g /path/to/n8n-octagon-node
@@ -75,10 +75,10 @@ npm install -g /path/to/n8n-octagon-node
 FROM n8nio/n8n:latest
 
 # Copy and install the custom node
-COPY n8n-nodes-octagon-1.0.0.tgz /tmp/
+COPY n8n-nodes-octagon-1.0.3.tgz /tmp/
 USER root
 RUN cd /usr/local/lib/node_modules/n8n && \
-    npm install /tmp/n8n-nodes-octagon-1.0.0.tgz
+    npm install /tmp/n8n-nodes-octagon-1.0.3.tgz
 USER node
 ```
 
@@ -259,7 +259,7 @@ Install the built package globally:
 npm run package
 
 # Install globally
-npm install -g ./n8n-nodes-octagon-1.0.0.tgz
+npm install -g ./n8n-nodes-octagon-1.0.3.tgz
 
 # Start n8n normally
 n8n start

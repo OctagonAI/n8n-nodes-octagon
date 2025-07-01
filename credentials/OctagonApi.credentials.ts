@@ -10,7 +10,7 @@ import {
  * Handles secure authentication with Octagon's AI Agents API
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.0.2
+ * @version 1.0.3
  * @since 2024-01-15
  */
 export class OctagonApi implements ICredentialType {
@@ -21,7 +21,7 @@ export class OctagonApi implements ICredentialType {
 	properties: INodeProperties[] = [
 		{
 			displayName:
-				'Get your free OctagonAPI key at: <a href="https://app.octagonai.co/signup" target="_blank">app.octagonai.co/signup</a>',
+				'Get your free Octagon API Key at: <a href="https://app.octagonai.co/signup" target="_blank">app.octagonai.co/signup</a>',
 			name: 'notice',
 			type: 'notice',
 			default: '',
