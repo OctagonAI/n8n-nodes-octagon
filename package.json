@@ -36,13 +36,13 @@
 		"email": "ken@octagonai.co",
 		"url": "https://octagonagents.com"
 	},
-	"homepage": "https://github.com/octagonai/n8n-nodes-octagon#readme",
+	"homepage": "https://github.com/OctagonAI/n8n-nodes-octagon#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/octagonai/n8n-nodes-octagon.git"
+		"url": "git+https://github.com/OctagonAI/n8n-nodes-octagon.git"
 	},
 	"bugs": {
-		"url": "https://github.com/octagonai/n8n-nodes-octagon/issues"
+		"url": "https://github.com/OctagonAI/n8n-nodes-octagon/issues"
 	},
 	"license": "MIT",
 	"type": "commonjs",
