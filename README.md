@@ -51,36 +51,45 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 
 2. **n8n Installation**: This node requires n8n v0.198.0 or higher
 
-### Install the Node
+### Install in n8n Cloud
 
-#### Method 1: Install from npm (when published)
+> **Note**: Only the n8n instance owner can install and manage community nodes. The instance owner is the person who sets up and manages user management. All members of an n8n instance can use already installed community nodes in their workflows.
 
-```bash
-npm install n8n-nodes-octagon
-```
+#### Install a verified community node
 
-#### Method 2: Install from local package
+To install the Octagon community node:
 
-```bash
-# Install the packaged node
-npm install -g ./n8n-nodes-octagon-1.0.3.tgz
+1. **Access the nodes panel**: Go to the Canvas and open the nodes panel (either by selecting '+' or pressing Tab).
 
-# Or install from the project directory
-npm install -g /path/to/n8n-octagon-node
-```
+2. **Search for Octagon**: Search for "Octagon" in the node search. If there is a matching verified community node, you will see a **More from the community** section at the bottom of the nodes panel.
 
-#### Method 3: Docker Installation
+3. **Select the node**: Select the Octagon node you want to install. This takes you to a detailed view of the node, showing all the supported actions.
 
-```dockerfile
-FROM n8nio/n8n:latest
+4. **Install**: Select **Install**. This will install the node for your instance and enable all members to use it in their workflows.
 
-# Copy and install the custom node
-COPY n8n-nodes-octagon-1.0.3.tgz /tmp/
-USER root
-RUN cd /usr/local/lib/node_modules/n8n && \
-    npm install /tmp/n8n-nodes-octagon-1.0.3.tgz
-USER node
-```
+5. **Start using**: You can now add the Octagon node to your workflows.
+
+#### Alternative installation method
+
+If the node doesn't appear in the Canvas search:
+
+1. **Go to Settings**: Navigate to **Settings** → **Community nodes**.
+2. **Install a community node**: Click **Install a community node**.
+3. **Enter package name**: Enter the npm package name: `n8n-nodes-octagon`
+4. **Install**: Click **Install** and wait for the installation to complete.
+5. **Verify**: Go to your workflow editor and search for "Octagon" in the nodes panel.
+
+> **Important**: Community nodes in n8n Cloud are sandboxed and reviewed for security. Installation may take a few minutes to complete.
+
+#### Uninstall a community node
+
+To uninstall the Octagon community node:
+
+1. **Go to Settings**: Navigate to **Settings** → **Community nodes**.
+2. **Find the node**: Locate the Octagon node in your installed community nodes.
+3. **Open options**: Select **Options** (three dots menu) on the node.
+4. **Uninstall**: Select **Uninstall package**.
+5. **Confirm**: Select **Uninstall Package** in the confirmation modal.
 
 ## Usage
 
@@ -190,129 +199,6 @@ Errors are returned in a structured format:
 }
 ```
 
-## Development
-
-### Building from Source
-
-```bash
-git clone https://github.com/octagon/octagon-n8n-node.git
-cd octagon-n8n-node
-npm install
-npm run build
-```
-
-### Development Mode
-
-```bash
-npm run dev  # Watch mode for development
-```
-
-### Package for Distribution
-
-```bash
-npm run package  # Creates .tgz file
-```
-
-## Local Development & Testing
-
-### Prerequisites for Local Development
-
-1. **Install n8n globally**:
-
-```bash
-npm install -g n8n
-```
-
-2. **Clone and build the node**:
-
-```bash
-git clone https://github.com/octagon/octagon-n8n-node.git
-cd octagon-n8n-node
-npm install
-npm run build
-```
-
-### Method 1: Custom Extensions (Recommended for Development)
-
-This method loads the node directly from your development directory:
-
-```bash
-# Start n8n with custom extensions path
-N8N_CUSTOM_EXTENSIONS=/path/to/octagon-n8n-node n8n start
-
-# Example (adjust path to your actual directory):
-N8N_CUSTOM_EXTENSIONS=/Users/yourname/Desktop/octagon-n8n-node n8n start
-```
-
-**Advantages:**
-
-- ✅ No need to reinstall after changes
-- ✅ Perfect for development and testing
-- ✅ Changes reflect immediately after rebuild
-
-### Method 2: Global Package Installation
-
-Install the built package globally:
-
-```bash
-# Build and package
-npm run package
-
-# Install globally
-npm install -g ./n8n-nodes-octagon-1.0.3.tgz
-
-# Start n8n normally
-n8n start
-```
-
-**Note**: Requires reinstallation after each change.
-
-### Testing Your Installation
-
-1. **Start n8n** using one of the methods above
-2. **Open your browser** to http://localhost:5678
-3. **Create a new workflow**
-4. **Search for "Octagon"** in the node list
-5. **Add the node** and configure:
-   - Set up Octagon API credentials
-   - Select "Octagon Agent (Router)"
-   - Enter a test query: "Tell me about Apple's latest earnings"
-   - Execute the workflow
-
-### Development Workflow
-
-1. **Make code changes** in your editor
-2. **Rebuild**: `npm run build`
-3. **Restart n8n** (if using Custom Extensions method)
-4. **Test changes** in n8n interface
-5. **Repeat** as needed
-
-### Troubleshooting Local Development
-
-**Node not appearing:**
-
-- Restart n8n completely
-- Check the custom extensions path is correct
-- Verify the build completed successfully
-
-**Icon not loading:**
-
-- Clear browser cache (`Cmd/Ctrl + Shift + R`)
-- Check that `Octagon-logo-only.png` is in the `dist/` folder
-
-**TypeScript errors:**
-
-```bash
-npm run build  # Check for compilation errors
-```
-
-**Permission issues:**
-
-```bash
-# Fix n8n settings permissions
-chmod 600 ~/.n8n/config
-```
-
 ## Troubleshooting
 
 ### Common Issues
@@ -344,5 +230,3 @@ See [CHANGELOG.md](CHANGELOG.md) for release history.
 ---
 
 **⚠️ Note**: This node requires an active Octagon API subscription. Some agents may have usage limits or require premium access. Get started with a free API key at [octagonagents.com](https://octagonagents.com).
-
-**🏆 Professional Grade**: This node is built to enterprise standards with comprehensive error handling, security best practices, and optimal performance.

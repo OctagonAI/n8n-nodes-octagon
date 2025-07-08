@@ -10,7 +10,7 @@ import {
  * Handles secure authentication with Octagon's AI Agents API
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.0.3
+ * @version 1.0.4
  * @since 2024-01-15
  */
 export class OctagonApi implements ICredentialType {

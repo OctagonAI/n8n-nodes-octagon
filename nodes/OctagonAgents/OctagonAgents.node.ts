@@ -6,89 +6,15 @@ import {
 	INodePropertyOptions,
 	NodeOperationError,
 	NodeConnectionType,
+	IHttpRequestOptions,
 } from 'n8n-workflow';
-import * as https from 'https';
-
-/**
- * Makes HTTP request to Octagon API
- *
- * @param apiKey - The API key for authentication
- * @param agent - The agent model to use
- * @param query - The user query
- * @returns Promise<any> - API response
- * @throws Error when API request fails
- */
-async function makeApiRequest(apiKey: string, agent: string, query: string): Promise<any> {
-	return new Promise((resolve, reject) => {
-		const data = JSON.stringify({
-			model: agent,
-			input: query,
-		});
-
-		const options: https.RequestOptions = {
-			hostname: 'api-gateway.octagonagents.com',
-			port: 443,
-			path: '/v1/responses',
-			method: 'POST',
-			headers: {
-				Authorization: `Bearer ${apiKey}`,
-				'Content-Type': 'application/json',
-				'Content-Length': Buffer.byteLength(data),
-				'User-Agent': 'n8n-octagon-node/1.0.0',
-			},
-		};
-
-		const req = https.request(options, (res) => {
-			let body = '';
-
-			res.on('data', (chunk) => {
-				body += chunk;
-			});
-
-			res.on('end', () => {
-				try {
-					const response = JSON.parse(body);
-
-					if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
-						resolve(response);
-					} else {
-						reject(
-							new Error(
-								`API request failed with status ${res.statusCode}: ${response.error || body}`,
-							),
-						);
-					}
-				} catch (error) {
-					reject(
-						new Error(
-							`Failed to parse API response: ${error instanceof Error ? error.message : 'Unknown error'}`,
-						),
-					);
-				}
-			});
-		});
-
-		req.on('error', (error) => {
-			reject(new Error(`HTTP request error: ${error.message}`));
-		});
-
-		req.on('timeout', () => {
-			req.destroy();
-			reject(new Error('Request timeout'));
-		});
-
-		req.setTimeout(30000); // 30 second timeout
-		req.write(data);
-		req.end();
-	});
-}
 
 /**
  * Professional n8n node for Octagon AI Agents
  * Provides access to 15 specialized financial and market research AI agents
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.0.2
+ * @version 1.0.4
  * @since 2024-01-15
  */
 // nodelinter-ignore-next-line node-dirname-against-convention
@@ -104,6 +30,7 @@ export class OctagonAgents implements INodeType {
 		defaults: {
 			name: 'Octagon',
 		},
+		usableAsTool: true,
 		// nodelinter-ignore-next-line node-class-description-inputs-wrong-regular-node
 		inputs: ['main'] as any,
 		// nodelinter-ignore-next-line node-class-description-outputs-wrong
@@ -249,9 +176,6 @@ export class OctagonAgents implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				// Get credentials - validates API key exists and is properly formatted
-				const credentials = await this.getCredentials('octagonApi', i);
-
 				// Get parameters and validate required fields
 				const agent = this.getNodeParameter('agent', i) as string;
 				const query = this.getNodeParameter('query', i) as string;
@@ -264,8 +188,27 @@ export class OctagonAgents implements INodeType {
 					});
 				}
 
-				// Make API request to Octagon
-				const response = await makeApiRequest(credentials.apiKey as string, agent, query);
+				// Prepare request options using n8n's HTTP helpers
+				const requestOptions: IHttpRequestOptions = {
+					url: 'https://api-gateway.octagonagents.com/v1/responses',
+					method: 'POST',
+					body: {
+						model: agent,
+						input: query,
+					},
+					json: true,
+					headers: {
+						'Content-Type': 'application/json',
+						'User-Agent': 'n8n-octagon-node/1.0.4',
+					},
+				};
+
+				// Make API request using n8n's HTTP helpers with authentication
+				const response = await this.helpers.httpRequestWithAuthentication.call(
+					this,
+					'octagonApi',
+					requestOptions,
+				);
 
 				let analysis = '';
 				let citations: any[] = [];

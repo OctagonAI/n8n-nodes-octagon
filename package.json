@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-octagon",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Professional n8n node for Octagon AI Agents - Access 15 specialized financial and market research AI agents including SEC filings, earnings transcripts, stock data, and private market intelligence",
 	"main": "dist/index.js",
 	"scripts": {
@@ -11,11 +11,13 @@
 		"lintfix": "eslint . --ext .ts,.js --fix",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepublishOnly": "npm run build && npm run lint && npm run format:check"
 	},
 	"keywords": [
 		"n8n",
 		"n8n-community-node-package",
+		"n8n-nodes",
 		"octagon",
 		"ai-agents",
 		"financial-data",
@@ -25,14 +27,16 @@
 		"stock-data",
 		"private-markets",
 		"financial-analysis",
-		"api-integration"
+		"api-integration",
+		"workflow-automation",
+		"business-intelligence"
 	],
 	"author": {
 		"name": "Octagon",
 		"email": "ken@octagonai.co",
 		"url": "https://octagonagents.com"
 	},
-	"homepage": "https://www.npmjs.com/package/n8n-nodes-octagon",
+	"homepage": "https://github.com/octagonai/n8n-nodes-octagon#readme",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/octagonai/n8n-nodes-octagon.git"
@@ -45,6 +49,9 @@
 	"engines": {
 		"node": ">=18.0.0",
 		"npm": ">=8.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"n8n": {
 		"n8nNodesApiVersion": 1,
@@ -73,6 +80,9 @@
 		"dist/**/*",
 		"README.md",
 		"LICENSE",
-		"*.md"
-	]
+		"CHANGELOG.md"
+	],
+	"peerDependencies": {
+		"n8n-workflow": ">=1.0.0"
+	}
 }
