@@ -1,20 +1,18 @@
-import {
+import type {
 	IExecuteFunctions,
+	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	INodeExecutionData,
-	INodePropertyOptions,
-	NodeOperationError,
-	NodeConnectionType,
 	IHttpRequestOptions,
 } from 'n8n-workflow';
+import { NodeConnectionType, NodeOperationError } from 'n8n-workflow';
 
 /**
  * Professional n8n node for Octagon AI Agents
  * Provides access to 15 specialized financial and market research AI agents
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.0.4
+ * @version 1.0.7
  * @since 2024-01-15
  */
 // nodelinter-ignore-next-line node-dirname-against-convention
@@ -31,10 +29,10 @@ export class OctagonAgents implements INodeType {
 			name: 'Octagon',
 		},
 		usableAsTool: true,
-		// nodelinter-ignore-next-line node-class-description-inputs-wrong-regular-node
-		inputs: ['main'] as any,
-		// nodelinter-ignore-next-line node-class-description-outputs-wrong
-		outputs: ['main'] as any,
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-regular-node
+		inputs: [NodeConnectionType.Main],
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'octagonApi',

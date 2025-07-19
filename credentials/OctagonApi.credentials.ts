@@ -5,12 +5,14 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
+import * as packageInfo from '../package.json';
+
 /**
  * Professional credential configuration for Octagon API
  * Handles secure authentication with Octagon's AI Agents API
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.0.4
+ * @version 1.0.7
  * @since 2024-01-15
  */
 export class OctagonApi implements ICredentialType {
@@ -46,6 +48,7 @@ export class OctagonApi implements ICredentialType {
 		properties: {
 			headers: {
 				Authorization: '=Bearer {{$credentials.apiKey}}',
+				'User-Agent': `${packageInfo.name}/${packageInfo.version} (Node.js/${process.versions.node})`,
 			},
 		},
 	};
@@ -56,8 +59,9 @@ export class OctagonApi implements ICredentialType {
 			url: '/v1/responses',
 			method: 'POST',
 			body: {
-				query: 'Get everything for Octagon AI',
-				agent: 'octagon-agent',
+				model: 'octagon-agent',
+				input: 'Test connection',
+				stream: true,
 			},
 		},
 	};

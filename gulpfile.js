@@ -1,7 +1,9 @@
 const path = require('path');
-const { task, src, dest } = require('gulp');
+const { task, src, dest, parallel } = require('gulp');
 
 task('build:icons', copyIcons);
+task('build:js', copyJavaScript);
+task('build:all', parallel('build:icons', 'build:js'));
 
 function copyIcons() {
 	const nodeSource = path.resolve('nodes', '**', '*.{png,svg}');
@@ -18,4 +20,12 @@ function copyIcons() {
 	src(iconsSource).pipe(dest(iconsDestination));
 
 	return src(credSource).pipe(dest(credDestination));
+}
+
+function copyJavaScript() {
+	// Copy the main index.js file to dist
+	const indexJsSource = path.resolve('index.js');
+	const indexJsDestination = path.resolve('dist');
+
+	return src(indexJsSource).pipe(dest(indexJsDestination));
 }
