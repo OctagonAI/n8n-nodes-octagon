@@ -48,7 +48,7 @@ export class OctagonApi implements ICredentialType {
 		properties: {
 			headers: {
 				Authorization: '=Bearer {{$credentials.apiKey}}',
-				'User-Agent': `${packageInfo.name}/${packageInfo.version} (Node.js/${process.versions.node})`,
+				'User-Agent': `${packageInfo.name}/${packageInfo.version} (Node.js)`,
 			},
 		},
 	};
