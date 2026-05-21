@@ -1,11 +1,12 @@
 # Octagon for n8n
 
-A professional n8n node that integrates with [Octagon's AI Agents API](https://docs.octagonagents.com/) for financial and market research. This node provides access to Octagon's specialized AI agents for analyzing SEC filings, earnings transcripts, stock data, private market intelligence, and more.
+A professional n8n node that integrates with [Octagon's AI Agents API](https://docs.octagonagents.com/) for financial and market research. This node provides access to Octagon's specialized AI agents for analyzing prediction markets, SEC filings, earnings transcripts, stock data, private market intelligence, and more.
 
 ## Features
 
 - **🔄 Smart Router Agent**: Octagon Agent automatically routes queries to the most appropriate specialized agent
 - **15 Specialized Agents**: Access to all Octagon's AI agents for different research domains
+- **Prediction Markets Modes**: Generate reports, inspect cached report metadata, or force a fresh Kalshi report
 - **🔒 Secure Authentication**: Built-in credential management for API keys
 - **📊 Rich Output**: Returns analysis with source citations and metadata
 - **⚡ Simplified Interface**: Clean, professional UI with essential options only
@@ -37,7 +38,7 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 
 ### 🔍 **Research Agents**
 
-- **Scraper Agent** (`octagon-scraper-agent`) - Extracts data from websites
+- **Prediction Markets Agent** (`octagon-prediction-markets-agent`) - Creates Kalshi prediction market reports
 - **Deep Research Agent** (`octagon-deep-research-agent`) - Conducts in-depth research
 
 ## Installation
@@ -100,6 +101,7 @@ To uninstall the Octagon community node:
    - **Add Credentials**: Go to Credentials → "Octagon API"
    - **Agent**: Use "Octagon Agent (Router)" for automatic routing (default)
    - **Query**: Enter your financial research question
+   - **Prediction Markets Mode**: When using Prediction Markets Agent, choose Default Report, Cache Search, or Refresh Report
 3. **Execute**: Run the workflow to get AI-powered analysis with citations
 
 ### Node Configuration
@@ -107,7 +109,8 @@ To uninstall the Octagon community node:
 The node interface is clean and simple:
 
 - **🎯 Agent**: Select from router or 14 specialized agents
-- **💬 Query**: Your research question (supports complex queries)
+- **💬 Query**: Your research question (supports complex queries and prediction markets prompts with Kalshi URLs)
+- **📈 Prediction Markets Mode**: Available when Prediction Markets Agent is selected
 - **⚙️ Additional Options**:
   - Include Token Usage (optional)
 
@@ -140,7 +143,26 @@ Compare Tesla's stock performance to the S&P 500 this year
 # Companies Agent (Private Market)
 Tell me about Stripe's latest funding round
 What is the current valuation of SpaceX?
+
+# Prediction Markets Agent
+Analyze https://kalshi.com/markets/kxbtcy/btc-price-range-eoy/kxbtcy-27jan0100 and summarize the edge
+Use cache mode for https://kalshi.com/markets/kxbtcy/btc-price-range-eoy/kxbtcy-27jan0100
+Refresh the report for https://kalshi.com/markets/kxbtcy/btc-price-range-eoy/kxbtcy-27jan0100
 ```
+
+### Prediction Markets Mode
+
+When **Prediction Markets Agent** is selected, the node exposes three modes:
+
+- **Default Report**: Uses `octagon-prediction-markets-agent`, which checks the cache first and refreshes only on cache miss
+- **Cache Search**: Uses `octagon-prediction-markets-agent:cache`, which returns cache metadata as JSON text
+- **Refresh Report**: Uses `octagon-prediction-markets-agent:refresh`, which always generates a new report
+
+Prediction markets requests must include a Kalshi market URL in the query text.
+
+Cache Search responses keep the raw response in `analysis` and also expose parsed JSON in `cacheData` when available.
+
+Refresh requests may require a paid plan and premium credits, based on your Octagon subscription.
 
 ### Output Format
 
@@ -149,6 +171,7 @@ The node returns a JSON object with the following structure:
 ```json
 {
 	"agent": "octagon-agent",
+	"model": "octagon-agent",
 	"query": "Tell me about Apple's latest earnings",
 	"analysis": "Apple reported strong Q4 2023 results with revenue of $89.5 billion...",
 	"sources": [
@@ -195,6 +218,7 @@ Errors are returned in a structured format:
 	"message": "Authentication failed. Please check your API key.",
 	"query": "Your original query",
 	"agent": "octagon-agent",
+	"model": "octagon-agent",
 	"timestamp": "2024-01-15T10:30:00.000Z"
 }
 ```
