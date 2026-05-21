@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-05-21
+
+### Changed
+
+- Replaced the stale Scraper Agent entry with Prediction Markets Agent.
+- Added prediction markets modes for default report lookup, cache search, and forced refresh.
+- Added Kalshi URL guidance and validation for prediction markets requests.
+- Added structured `cacheData` output when cache mode returns JSON metadata.
+- Updated package metadata and documentation to reflect prediction markets support.
+
 ## [1.0.0] - 2024-01-15
 
 ### Added
