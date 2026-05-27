@@ -270,19 +270,26 @@ export class OctagonAgents implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			const agent = this.getNodeParameter('agent', i) as string;
-			const query = this.getNodeParameter('query', i) as string;
-			const predictionMarketsMode = this.getNodeParameter(
-				'predictionMarketsMode',
-				i,
-				'default',
-			) as PredictionMarketsMode;
-			const additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
+			let agent = '';
+			let query = '';
+			let model = '';
+			let additionalFields: {
 				includeUsage?: boolean;
-			};
-			const model = resolveModel(agent, predictionMarketsMode);
+			} = {};
 
 			try {
+				agent = this.getNodeParameter('agent', i) as string;
+				query = this.getNodeParameter('query', i) as string;
+				const predictionMarketsMode = this.getNodeParameter(
+					'predictionMarketsMode',
+					i,
+					'default',
+				) as PredictionMarketsMode;
+				additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
+					includeUsage?: boolean;
+				};
+				model = resolveModel(agent, predictionMarketsMode);
+
 				// Validate required parameters
 				if (!query || query.trim().length === 0) {
 					throw new NodeOperationError(this.getNode(), 'Query is required and cannot be empty', {
