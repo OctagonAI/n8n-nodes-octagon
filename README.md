@@ -210,7 +210,9 @@ The node includes comprehensive error handling:
 - **📝 Query Errors**: Malformed or empty queries
 - **🤖 Agent Errors**: Agent-specific errors or limitations
 
-Errors are returned in a structured format:
+By default, the node throws standard n8n errors and the execution fails in the n8n UI. HTTP and API failures are surfaced through n8n's normal error handling so you can inspect the full request context.
+
+If you enable **Continue On Fail** on the node, the node returns a structured error row instead of throwing:
 
 ```json
 {
@@ -222,6 +224,22 @@ Errors are returned in a structured format:
 	"timestamp": "2024-01-15T10:30:00.000Z"
 }
 ```
+
+This lets workflows branch on failed items while preserving n8n-standard behavior when Continue On Fail is disabled.
+
+## Release Process
+
+Verified n8n community-node releases must be published from GitHub Actions with npm provenance.
+
+To publish a new version:
+
+1. Merge the release changes to `main`.
+2. Ensure npm Trusted Publisher is configured for repository `OctagonAI/n8n-nodes-octagon` and workflow filename `publish.yml`.
+3. Bump the package version in the repository.
+4. Push the matching version tag to GitHub.
+5. Let `.github/workflows/publish.yml` publish the package with provenance.
+
+Do not publish verified releases with a local `npm publish` command.
 
 ## Troubleshooting
 
@@ -235,7 +253,7 @@ Errors are returned in a structured format:
 ### Support Channels
 
 - **📚 Documentation**: [Octagon API Documentation](https://docs.octagonagents.com/)
-- **🐛 Issues**: [GitHub Issues](https://github.com/octagon/octagon-n8n-node/issues)
+- **🐛 Issues**: [GitHub Issues](https://github.com/OctagonAI/n8n-nodes-octagon/issues)
 - **💬 Support**: Contact Octagon support for API-related questions
 - **📧 Email**: support@octagonagents.com
 

@@ -5,8 +5,9 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IHttpRequestOptions,
+	JsonObject,
 } from 'n8n-workflow';
-import { NodeConnectionType, NodeOperationError } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionType, NodeOperationError } from 'n8n-workflow';
 import * as packageInfo from '../../package.json';
 
 const PREDICTION_MARKETS_AGENT = 'octagon-prediction-markets-agent';
@@ -65,7 +66,7 @@ function parseCachePayload(analysis: string): CachePayload | undefined {
  * Provides access to 15 specialized financial and market research AI agents
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.1.1
+ * @version 1.1.2
  * @since 2024-01-15
  */
 // nodelinter-ignore-next-line node-dirname-against-convention
@@ -269,19 +270,19 @@ export class OctagonAgents implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
-			try {
-				// Get parameters and validate required fields
-				const agent = this.getNodeParameter('agent', i) as string;
-				const query = this.getNodeParameter('query', i) as string;
-				const predictionMarketsMode = this.getNodeParameter(
-					'predictionMarketsMode',
-					i,
-					'default',
-				) as PredictionMarketsMode;
-				const additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
-					includeUsage?: boolean;
-				};
+			const agent = this.getNodeParameter('agent', i) as string;
+			const query = this.getNodeParameter('query', i) as string;
+			const predictionMarketsMode = this.getNodeParameter(
+				'predictionMarketsMode',
+				i,
+				'default',
+			) as PredictionMarketsMode;
+			const additionalFields = this.getNodeParameter('additionalFields', i, {}) as {
+				includeUsage?: boolean;
+			};
+			const model = resolveModel(agent, predictionMarketsMode);
 
+			try {
 				// Validate required parameters
 				if (!query || query.trim().length === 0) {
 					throw new NodeOperationError(this.getNode(), 'Query is required and cannot be empty', {
@@ -299,8 +300,6 @@ export class OctagonAgents implements INodeType {
 					);
 				}
 
-				const model = resolveModel(agent, predictionMarketsMode);
-
 				// Prepare request options using n8n's HTTP helpers
 				const requestOptions: IHttpRequestOptions = {
 					url: 'https://api-gateway.octagonagents.com/v1/responses',
@@ -317,11 +316,18 @@ export class OctagonAgents implements INodeType {
 				};
 
 				// Make API request using n8n's HTTP helpers with authentication
-				const response = (await this.helpers.httpRequestWithAuthentication.call(
-					this,
-					'octagonApi',
-					requestOptions,
-				)) as OctagonResponse;
+				let response: OctagonResponse;
+				try {
+					response = (await this.helpers.httpRequestWithAuthentication.call(
+						this,
+						'octagonApi',
+						requestOptions,
+					)) as OctagonResponse;
+				} catch (error) {
+					throw new NodeApiError(this.getNode(), error as JsonObject, {
+						itemIndex: i,
+					});
+				}
 
 				let analysis = '';
 				let citations: IDataObject[] = [];
@@ -385,21 +391,31 @@ export class OctagonAgents implements INodeType {
 					json: outputData,
 				});
 			} catch (error) {
-				// Handle errors gracefully
-				const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+				if (this.continueOnFail()) {
+					const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
 
-				returnData.push({
-					json: {
-						error: true,
-						message: errorMessage,
-						query: this.getNodeParameter('query', i) as string,
-						agent: this.getNodeParameter('agent', i) as string,
-						model: resolveModel(
-							this.getNodeParameter('agent', i) as string,
-							this.getNodeParameter('predictionMarketsMode', i, 'default') as PredictionMarketsMode,
-						),
-						timestamp: new Date().toISOString(),
-					},
+					returnData.push({
+						json: {
+							error: true,
+							message: errorMessage,
+							query,
+							agent,
+							model,
+							timestamp: new Date().toISOString(),
+						},
+						pairedItem: {
+							item: i,
+						},
+					});
+					continue;
+				}
+
+				if (error instanceof NodeApiError || error instanceof NodeOperationError) {
+					throw error;
+				}
+
+				throw new NodeOperationError(this.getNode(), error as Error, {
+					itemIndex: i,
 				});
 			}
 		}
