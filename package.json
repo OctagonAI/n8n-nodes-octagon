@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-octagon",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Professional n8n node for Octagon AI Agents - Access 15 specialized financial and market research AI agents including prediction markets, SEC filings, earnings transcripts, stock data, and private market intelligence",
 	"keywords": [
 		"n8n-community-node-package",
@@ -36,7 +36,7 @@
 	},
 	"engines": {
 		"node": ">=20.15",
-		"npm": ">=8.0.0"
+		"npm": ">=9.5.1"
 	},
 	"main": "dist/index.js",
 	"scripts": {
@@ -47,8 +47,10 @@
 		"format:check": "prettier --check .",
 		"lint": "eslint . --ext .ts,.js",
 		"lintfix": "eslint . --ext .ts,.js --fix",
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"prepublishOnly": "npm run build && npm run lint && npm run format:check"
+		"scan": "npx -p node@22 -p @n8n/scan-community-package scan-community-package n8n-nodes-octagon",
+		"test": "echo \"No automated tests configured\"",
+		"validate": "npm run build && npm run lint && npm run format:check",
+		"prepublishOnly": "npm run validate"
 	},
 	"files": [
 		"dist/**/*",
