@@ -5,7 +5,7 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 ## Features
 
 - **🔄 Smart Router Agent**: Octagon Agent automatically routes queries to the most appropriate specialized agent
-- **6 Public-Market Specialists**: Octagon Agent routes across the six public-market specialists, with separate prediction-markets and deep-research tools available
+- **6 Public-Market Specialists**: Octagon Agent routes only across the six public-market specialists; prediction-markets and deep-research remain separate tools
 - **Prediction Markets Modes**: Generate reports, inspect cached report metadata, or force a fresh Kalshi report
 - **🔒 Secure Authentication**: Built-in credential management for API keys
 - **📊 Rich Output**: Returns analysis with source citations and metadata
