@@ -1,11 +1,11 @@
 # Octagon for n8n
 
-A professional n8n node that integrates with [Octagon's AI Agents API](https://docs.octagonagents.com/) for financial and market research. This node provides access to Octagon's specialized AI agents for analyzing prediction markets, SEC filings, earnings transcripts, stock data, private market intelligence, and more.
+A professional n8n node that integrates with [Octagon's AI Agents API](https://docs.octagonagents.com/) for financial and market research. This node provides access to Octagon's specialized AI agents for analyzing prediction markets, SEC filings, earnings transcripts, stock data, and more.
 
 ## Features
 
 - **🔄 Smart Router Agent**: Octagon Agent automatically routes queries to the most appropriate specialized agent
-- **15 Specialized Agents**: Access to all Octagon's AI agents for different research domains
+- **6 Public-Market Specialists**: Octagon Agent routes across the six public-market specialists, with separate prediction-markets and deep-research tools available
 - **Prediction Markets Modes**: Generate reports, inspect cached report metadata, or force a fresh Kalshi report
 - **🔒 Secure Authentication**: Built-in credential management for API keys
 - **📊 Rich Output**: Returns analysis with source citations and metadata
@@ -26,15 +26,6 @@ A professional n8n node that integrates with [Octagon's AI Agents API](https://d
 - **Financials Agent** (`octagon-financials-agent`) - Analyzes financial statements
 - **Holdings Agent** (`octagon-holdings-agent`) - Analyzes institutional ownership and holdings
 - **Crypto Agent** (`octagon-crypto-agent`) - Analyzes cryptocurrency market data
-
-### 🏢 **Private Market Agents**
-
-- **Companies Agent** (`octagon-companies-agent`) - Provides private company information
-- **Funding Agent** (`octagon-funding-agent`) - Analyzes private company funding data
-- **Funds Agent** (`octagon-funds-agent`) - Analyzes private funds
-- **Deals Agent** (`octagon-deals-agent`) - Analyzes M&A and IPO data
-- **Investors Agent** (`octagon-investors-agent`) - Provides investor information
-- **Debts Agent** (`octagon-debts-agent`) - Analyzes private debts, borrowers, and lenders
 
 ### 🔍 **Research Agents**
 
@@ -108,7 +99,7 @@ To uninstall the Octagon community node:
 
 The node interface is clean and simple:
 
-- **🎯 Agent**: Select from router or 14 specialized agents
+- **🎯 Agent**: Select from the router or 8 specialized agents
 - **💬 Query**: Your research question (supports complex queries and prediction markets prompts with Kalshi URLs)
 - **📈 Prediction Markets Mode**: Available when Prediction Markets Agent is selected
 - **⚙️ Additional Options**:
@@ -121,7 +112,7 @@ The node interface is clean and simple:
 ```
 Tell me about Apple's latest earnings performance
 What's happening with Tesla's stock price?
-Analyze SpaceX's latest funding round
+Summarize Nvidia's latest earnings guidance
 Compare Microsoft vs Google revenue growth
 ```
 
@@ -139,10 +130,6 @@ Analyze management guidance from Tesla's Q4 2023 earnings call
 # Stock Data Agent
 What's the 52-week high and low for AAPL?
 Compare Tesla's stock performance to the S&P 500 this year
-
-# Companies Agent (Private Market)
-Tell me about Stripe's latest funding round
-What is the current valuation of SpaceX?
 
 # Prediction Markets Agent
 Analyze https://kalshi.com/markets/kxbtcy/btc-price-range-eoy/kxbtcy-27jan0100 and summarize the edge

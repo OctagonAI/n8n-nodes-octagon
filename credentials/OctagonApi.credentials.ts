@@ -12,7 +12,7 @@ import * as packageInfo from '../package.json';
  * Handles secure authentication with Octagon's AI Agents API
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.1.2
+ * @version 1.1.3
  * @since 2024-01-15
  */
 export class OctagonApi implements ICredentialType {

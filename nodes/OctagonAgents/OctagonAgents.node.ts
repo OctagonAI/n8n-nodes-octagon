@@ -63,10 +63,10 @@ function parseCachePayload(analysis: string): CachePayload | undefined {
 
 /**
  * Professional n8n node for Octagon AI Agents
- * Provides access to 15 specialized financial and market research AI agents
+ * Provides access to 9 specialized financial and market research AI agents
  *
  * @author Octagon <ken@octagonai.co>
- * @version 1.1.2
+ * @version 1.1.3
  * @since 2024-01-15
  */
 // nodelinter-ignore-next-line node-dirname-against-convention
@@ -138,45 +138,12 @@ export class OctagonAgents implements INodeType {
 						description: 'Public market intelligence - Analyzes cryptocurrency market data',
 					},
 					{
-						name: '08. Companies Agent',
-						value: 'octagon-companies-agent',
-						description: 'Private market intelligence - Provides private company information',
-					},
-					{
-						name: '09. Funding Agent',
-						value: 'octagon-funding-agent',
-						description: 'Private market intelligence - Analyzes private company funding data',
-					},
-					{
-						name: '10. Funds Agent',
-						value: 'octagon-funds-agent',
-						description:
-							'Private market intelligence - Analyzes investment funds and fund managers',
-					},
-					{
-						name: '11. Deals Agent',
-						value: 'octagon-deals-agent',
-						description: 'Private market intelligence - Analyzes M&A and IPO data',
-					},
-					{
-						name: '12. Investors Agent',
-						value: 'octagon-investors-agent',
-						description:
-							'Private market intelligence - Analyzes venture capital and private equity investors',
-					},
-					{
-						name: '13. Debts Agent',
-						value: 'octagon-debts-agent',
-						description:
-							'Private market intelligence - Analyzes private debts, borrowers, and lenders',
-					},
-					{
-						name: '14. Prediction Markets Agent',
+						name: '08. Prediction Markets Agent',
 						value: PREDICTION_MARKETS_AGENT,
 						description: 'Deep research intelligence - Creates Kalshi prediction market reports',
 					},
 					{
-						name: '15. Deep Research Agent',
+						name: '09. Deep Research Agent',
 						value: 'octagon-deep-research-agent',
 						description: 'Deep research intelligence - Conducts in-depth research',
 					},

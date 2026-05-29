@@ -1,7 +1,7 @@
 {
 	"name": "n8n-nodes-octagon",
-	"version": "1.1.2",
-	"description": "Professional n8n node for Octagon AI Agents - Access 15 specialized financial and market research AI agents including prediction markets, SEC filings, earnings transcripts, stock data, and private market intelligence",
+	"version": "1.1.3",
+	"description": "Professional n8n node for Octagon AI Agents - Access 6 public-market specialists plus prediction markets, SEC filings, earnings transcripts, and stock data",
 	"keywords": [
 		"n8n-community-node-package",
 		"n8n-nodes",
@@ -14,7 +14,6 @@
 		"sec-filings",
 		"earnings-transcripts",
 		"stock-data",
-		"private-markets",
 		"financial-analysis",
 		"api-integration",
 		"workflow-automation",
