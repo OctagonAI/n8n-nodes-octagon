@@ -11,7 +11,6 @@ import { NodeApiError, NodeConnectionType, NodeOperationError } from 'n8n-workfl
 import * as packageInfo from '../../package.json';
 
 const PREDICTION_MARKETS_AGENT = 'octagon-prediction-markets-agent';
-const KALSHI_URL_PATTERN = /https:\/\/kalshi\.com\/markets\/\S+/i;
 
 type PredictionMarketsMode = 'default' | 'cache' | 'refresh';
 
@@ -153,7 +152,7 @@ export class OctagonAgents implements INodeType {
 			},
 			{
 				displayName:
-					'Prediction markets requests must include a Kalshi market URL in the query. Use Cache Search to inspect cached reports without refreshing, or Refresh Report to force a new report.',
+					'Name a market with a Kalshi market URL or event ticker, or a Polymarket event URL, to get its report. A query that names no market returns a list of matching open markets in Cache Search mode. Use Cache Search to read cached data without refreshing, or Refresh Report to force a new report.',
 				name: 'predictionMarketsNotice',
 				type: 'notice',
 				default: '',
@@ -181,7 +180,8 @@ export class OctagonAgents implements INodeType {
 					{
 						name: 'Cache Search',
 						value: 'cache',
-						description: 'Return cached report metadata without creating a new report',
+						description:
+							'Return cached report metadata for a market, or a list of matching open markets for a topic query, without creating a new report',
 					},
 					{
 						name: 'Refresh Report',
@@ -201,9 +201,9 @@ export class OctagonAgents implements INodeType {
 				},
 				default: '',
 				placeholder:
-					'Ask any financial or market research question. Prediction markets queries must include a Kalshi market URL...',
+					'Ask any financial or market research question. For a prediction market report, include the market URL or ticker...',
 				description:
-					'Your research query or question. Prediction markets requests must include a Kalshi market URL.',
+					'Your research query or question. For a prediction market report, include the Kalshi market URL or event ticker, or the Polymarket event URL.',
 				required: true,
 			},
 			{
@@ -262,16 +262,6 @@ export class OctagonAgents implements INodeType {
 					throw new NodeOperationError(this.getNode(), 'Query is required and cannot be empty', {
 						itemIndex: i,
 					});
-				}
-
-				if (agent === PREDICTION_MARKETS_AGENT && !KALSHI_URL_PATTERN.test(query)) {
-					throw new NodeOperationError(
-						this.getNode(),
-						'Prediction markets requests must include a Kalshi market URL in the query',
-						{
-							itemIndex: i,
-						},
-					);
 				}
 
 				// Prepare request options using n8n's HTTP helpers

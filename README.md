@@ -142,10 +142,10 @@ Refresh the report for https://kalshi.com/markets/kxbtcy/btc-price-range-eoy/kxb
 When **Prediction Markets Agent** is selected, the node exposes three modes:
 
 - **Default Report**: Uses `octagon-prediction-markets-agent`, which checks the cache first and refreshes only on cache miss
-- **Cache Search**: Uses `octagon-prediction-markets-agent:cache`, which returns cache metadata as JSON text
-- **Refresh Report**: Uses `octagon-prediction-markets-agent:refresh`, which always generates a new report
+- **Cache Search**: Uses `octagon-prediction-markets-agent:cache`, which returns cache metadata as JSON text for a named market, or, when the query names no market, a JSON list of matching open markets (`kind: "discovery"`). Never generates a report; free
+- **Refresh Report**: Uses `octagon-prediction-markets-agent:refresh`, which always generates a new report (3 credits)
 
-Prediction markets requests must include a Kalshi market URL in the query text.
+Name the market with a Kalshi market URL or event ticker, or a Polymarket event URL. A query that names no market is answered with a market search in Cache Search mode; the API returns a `400` with an explanatory message when a named ticker does not resolve.
 
 Cache Search responses keep the raw response in `analysis` and also expose parsed JSON in `cacheData` when available.
 
